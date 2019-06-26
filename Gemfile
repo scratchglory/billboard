@@ -1,9 +1,8 @@
 source "https://rubygems.org"
 
 gem 'nokogiri'
-gem 'open-uri'
 gem 'pry'
-
+gem 'rspec'
 
 # Specify your gem's dependencies in billboard.gemspec
 gemspec

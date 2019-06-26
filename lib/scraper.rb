@@ -13,7 +13,7 @@ class Scraper
    
    list_of_songs = doc.css("div.chart-list-item")
 
-   list_of_songs.each do |song|
+   list_of_songs.each do |song|     # iterating through each </div>
         title = song.css("div.chart-list-item__title").text.strip
         artist = song.css("div.chart-list-item__artist").text.strip
         ranking = song.css("div.chart-list-item__rank").text.strip

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
+require_relative '../lib/environment'
 
-puts "Hello"
 
-ClI.new.call
+Billboard::CLI.new.call
