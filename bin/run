@@ -2,4 +2,4 @@
 require_relative '../lib/environment'
 
 
-Billboard::CLI.new.call
+Billboard::CLI.new.call # making a new instance and call the method
