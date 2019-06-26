@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
-
+require_relative './environment'
 
 class Scraper
 
@@ -17,17 +17,8 @@ class Scraper
         title = song.css("div.chart-list-item__title").text.strip
         artist = song.css("div.chart-list-item__artist").text.strip
         ranking = song.css("div.chart-list-item__rank").text.strip
-        puts ranking
-        puts title
-        puts artist
+        puts "#{ranking}. #{title} - #{artist}"
    end
-    
-#    def song_title
-#         song_title.each.with_index do |song, i|
-#             puts "#{i + 1}. #{song.text.strip}"
-#         end
-#    end
-
 
     # def artist
     #     artist.each do |artist|
@@ -38,6 +29,20 @@ class Scraper
     # def ranking
     #     puts ranking.text
     # end
+
+
+    
+# To give a list of the top 100 artist and be able to see their chart hisotry
+
+class Scraper1
+    
+    url = "https://www.billboard.com/music/billie-eilish"
+    doc = Nokogiri::HTML(open(url))
+
+    artist_info = doc.css(".artist-section--chart-history__stats__header").text
+    puts artist_info
+
+end
 
 
 
