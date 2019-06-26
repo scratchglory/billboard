@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
+
 class Scraper
 
    url = "https://www.billboard.com/charts/hot-100"
@@ -20,7 +21,6 @@ class Scraper
         puts title
         puts artist
    end
-
     
 #    def song_title
 #         song_title.each.with_index do |song, i|
