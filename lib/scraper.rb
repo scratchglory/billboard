@@ -5,47 +5,49 @@ require_relative './environment'
 
 class Scraper
 
-   url = "https://www.billboard.com/charts/hot-100"
-   doc = Nokogiri.HTML(open(url))
-   song_title = doc.css("div.chart-list-item__title")
-   artist = doc.css("div.chart-list-item__artist")
-   ranking = doc.css("div.chart-list-item__rank")
-   
-   list_of_songs = doc.css("div.chart-list-item")
-
-   list_of_songs.each do |song|     # iterating through each </div>
-        title = song.css("div.chart-list-item__title").text.strip
-        artist = song.css("div.chart-list-item__artist").text.strip
-        ranking = song.css("div.chart-list-item__rank").text.strip
-        puts "#{ranking}. #{title} - #{artist}"
-   end
-
-    # def artist
-    #     artist.each do |artist|
-    #         puts artist.text.strip
-    #     end  
-    # end
-
-    # def ranking
-    #     puts ranking.text
-    # end
-
-
+    @@base_url = "https://www.billboard.com"
     
+
+    def get_chart
+        # url = "https://www.billboard.com/charts/hot-100"
+        doc = Nokogiri.HTML(open(@@base_url + "/charts/hot-100"))   
+        list_of_songs = doc.css("div.chart-list-item")
+
+    list_of_songs.each do |song|     # iterating through each </div>
+            title = song.css("div.chart-list-item__title").text.strip
+            artist = song.css("div.chart-list-item__artist").text.strip
+            ranking = song.css("div.chart-list-item__rank").text.strip
+            puts "#{ranking}. #{title} - #{artist}"    
+        end
+    end
+
+    def get_artist()
+        doc = 
+    end  
+end
+
+Scraper.new.get_chart
+
+
 # To give a list of the top 100 artist and be able to see their chart hisotry
 
-class Scraper1
+# class Scraper1
     
-    url = "https://www.billboard.com/music/billie-eilish"
-    doc = Nokogiri::HTML(open(url))
+#     # site = "https://www.billboard.com/music/#{artist_name}"
+#     site = "https://www.billboard.com/music/taylor-swift"
 
-    artist_info = doc.css(".artist-section--chart-history__stats__header").text
-    puts artist_info
-
-end
-
+#     doc = Nokogiri::HTML(open(site))
+#     artist_name = 
+#     artist_chart = doc.css("div.artist-section--chart-history__title-list").text
 
 
-    
-end
+#     def list_of_artist
+        
+#     end
 
+
+#     def chart_history
+        
+#     end
+
+# end
