@@ -2,8 +2,19 @@
 class Billboard::CLI
  
     def call
+        welcome 
+        menu
+        # list_of_songs
+    end #call
+    
+    def welcome
         puts "Welcome to the list of Billboards Top Hot 100 Songs!"
+        puts "----------------------------------------------------"
         puts "For a list of Billboard's 100, type 'list', or 'exit!' to exit."
+    end #welcome
+
+    
+    def menu
         input = nil
         while input != "exit!"
             input = gets.strip
@@ -17,26 +28,13 @@ class Billboard::CLI
             when "exit!"
                 exit
             end #case
-        end #loop
-
-        # menu
-        # list_of_songs
-    end #call
-
+        end #loop 
+    end # menu
+    
     def list_of_songs
         # should have the list of songs from Scraper class
-        Scraper.get_chart
-    end
+        Song.create
+    end #list_of_songs
     
-    # def menu
-    #     # Select an artist from the menu you wish to see more info on 
-    #     puts "To see more songs from the artist on the Top 100, enter a number from 1-100:"
-    #     input = gets.strip
-    #     if input.to_i.between?(1,100)
-            
-    #     end
-    # end
-
-
 end
 

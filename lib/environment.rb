@@ -4,7 +4,7 @@ require_relative './scraper.rb'
 require_relative './billboard_list.rb'
 
 
-module Billboard
+module Billboard_Top_100
   class Error < StandardError; end
   # Your code goes here...
 end
