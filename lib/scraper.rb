@@ -7,15 +7,16 @@ class Scraper
     @@base_url = "https://www.billboard.com"
 
     def self.get_chart
-        # url = "https://www.billboard.com/charts/hot-100"
+      
         doc = Nokogiri.HTML(open(@@base_url + "/charts/hot-100"))   
-        list_of_songs = doc.css("div.chart-list-item")
+    #     list_of_songs = doc.css("div.chart-list-item")
 
-    list_of_songs.each do |song|     # iterating through each </div>
-            title = song.css("div.chart-list-item__title").text.strip
-            artist = song.css("div.chart-list-item__artist").text.strip
-            ranking = song.css("div.chart-list-item__rank").text.strip
-            puts "#{ranking}. #{title} - #{artist}"    
+    # list_of_songs.each do |song|     # iterating through each </div> 
+    #         title = song.css("div.chart-list-item__title").text.strip
+    #         artist = song.css("div.chart-list-item__artist").text.strip
+    #         ranking = song.css("div.chart-list-item__rank").text.strip
+    #         @@all << 
+    #         puts "#{ranking}. #{title} - #{artist}"    
         end
     end
 

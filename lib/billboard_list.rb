@@ -8,17 +8,28 @@ class Song
         @ranking = ranking
     end # end of initialize
 
-    def self.allocate
+    def self.all
         @@all
     end #self.all
 
     def self.create # creating the sogns with artist
-        Scraper.get_chart
-        binding.pry
-    end
+        html = Scraper.get_chart
+        list_of_songs = html.css("div.chart-list-item")
 
+        list_of_songs.each do |song|     # iterating through each </div> 
+                song_info = Song.new
+                song_info.title = song.css("div.chart-list-item__title").text.strip
+                song_info.artist = song.css("div.chart-list-item__artist").text.strip
+                song_info.ranking = song.css("div.chart-list-item__rank").text.strip
+                @@all << song_info
+                puts "#{song_info.ranking}. #{song_info.title} - #{song_info.artist}"  
+        end # iterator do
+    end # create
 
+    # def self.find_by_name(artist_input)
+    #     self.all.find {|} 
 
-    
-
+    # end #find_by_name
 end # end of class
+
+Song.create()
