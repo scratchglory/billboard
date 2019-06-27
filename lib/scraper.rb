@@ -4,11 +4,9 @@ require 'pry'
 require_relative './environment'
 
 class Scraper
-
     @@base_url = "https://www.billboard.com"
-    
 
-    def get_chart
+    def self.get_chart
         # url = "https://www.billboard.com/charts/hot-100"
         doc = Nokogiri.HTML(open(@@base_url + "/charts/hot-100"))   
         list_of_songs = doc.css("div.chart-list-item")
@@ -21,12 +19,18 @@ class Scraper
         end
     end
 
-    def get_artist()
-        doc = 
-    end  
-end
+    def get_artist_chart
+        # doc = Nokogiri.HTML(open(@@base_url + "/music/#{artist_name}"))
+        # artist_name = gets.strip
+        # binding.pry
+    end
 
-Scraper.new.get_chart
+    
+        
+ 
+end #end of class
+
+# Scraper.new.get_chart
 
 
 # To give a list of the top 100 artist and be able to see their chart hisotry
