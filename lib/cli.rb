@@ -22,6 +22,7 @@ class Billboard::CLI
             when "list"
                 list_of_songs
             when "exit!"
+                puts "Peace!"
                 exit
             else 
                 puts "It's either 'list' or 'exit!'"
@@ -36,6 +37,7 @@ class Billboard::CLI
         if artist_input.to_i > 0 && artist_input.to_i <= 100
             list_of_artist_chart(artist_input)
         elsif artist_input == "exit!"
+            puts "Keep on listening. Peace!"
             exit
         else
             puts "It's either 1 to 100."
@@ -67,15 +69,21 @@ class Billboard::CLI
        # if not nil pass that url value through as an argument to our Scraper method
        # output the chart returned from Scraper asociated to the artist
         
-        selected_song = Song.all.detect do |song|
+        selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
         whatever_was_chosen == song.ranking
         end    
         # binding.pry
-        if selected_song.artist.url != nil && selected_song.artist.details == nil
+        if selected_song.artist.url != nil && selected_song.artist.details == nil   #if the artist name isn't nil and the url of the artist is nil
             # selected_song.url  
-            Scraper.get_artist_details(song.artist)  
-        end
+            artist_chart = Scraper.get_artist_details(song.artist)     # the URL of the artist chosen/matched
+            Artist.all << artist_chart  # add to the array of Artist collection
+        end 
         # puts the details from the newly updated artist_obj returned from Scraper
+
+       # if whatever_was_chosen == Artist.name  ## could we use unless in the code above?
+            # puts "ERROR"
+        # end
+
 
     end #list_of_artist_chart
 

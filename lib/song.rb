@@ -16,20 +16,13 @@ class Song
 
     def save # creating the songs with artist
         @@all << self        
-    end # create
+    end # save
 
     def self.create(title, artist, ranking, url)
         new_song = self.new(title, artist, ranking, url)
         new_song.save
         new_song
-    end
+    end # create
 
-#     def self.find_by_name(artist_input)
-#         self.all.find {|artist| song_info.artist = artist_input}
-#         binding.pry
-#     end #find_by_name
 end #Class
-
-# binding.pry
-# 
 
