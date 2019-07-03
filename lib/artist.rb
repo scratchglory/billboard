@@ -8,7 +8,7 @@ class Artist  # also considered Constance
     attr_accessor :name, :url, :song
     @@all =[]
 
-     def initialize(name, url)
+     def initialize(name, song, url)
         @name = name
         @url = url
         @song = song

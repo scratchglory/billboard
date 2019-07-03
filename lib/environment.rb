@@ -4,7 +4,7 @@ require_relative './scraper.rb'
 require_relative './song.rb'
 require_relative './artist.rb'
 
-
+require 'pry'
 
 
 module Billboard_Top_100

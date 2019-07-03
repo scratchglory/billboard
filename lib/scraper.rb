@@ -2,9 +2,10 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 require_relative './environment'
+require_relative './cli'
 # return an array of hashes
 
-class Scraper
+class Scraper < Billboard::CLI
     @@base_url = "https://www.billboard.com"
     
     def self.get_chart
@@ -24,11 +25,12 @@ class Scraper
     
     def self.get_artist_details#(artist_obj) # scraping second page
         # puts "this is being scraped"
-        
         # scrape arist_obj.url
         # update artist_obj based on return from scrape
         # return the updated artist_obj
-        doc = Nokogiri::HTML(open(@@base_url + "/music/drake")) # the aritst page url. #{Song.url}
+        # bill_cli = Billboard::CLI.new.artist_url("#{@selected_song.url}")
+        bill_cli = @@selected_song.url
+        doc = Nokogiri::HTML(open(@@base_url + bill_cli)) # the aritst page url. #{Song.url}
         artist_details = doc.css("div.artist-section.artist-section--chart-history")
         artist_details.map do |artist|
             artist_array = [] 
