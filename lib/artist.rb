@@ -8,9 +8,10 @@ class Artist  # also considered Constance
     attr_accessor :name, :url, :song
     @@all =[]
 
-     def initialize#(name, url)
-        # @name = name
-        # @url = url
+     def initialize(name, url)
+        @name = name
+        @url = url
+        @song = song
         save  # When a new objet is made, it will save itself
     end # initialize
 
@@ -21,6 +22,13 @@ class Artist  # also considered Constance
     def save
         @@all << self
     end # save
+
+    def self.create(name, url, song)
+        new_artist = self.new(name, url, song)
+        new_artist.save
+        new_artist
+    end # create
+
 
     def self.find_by_name(name) # name is a string 
         # iterate through the @@all array (detect), returning the element of the array for which the following block returns true

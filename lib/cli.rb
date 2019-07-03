@@ -1,8 +1,12 @@
 # itterate over hashes to return a song/artist
 
 class Billboard::CLI
+
+    attr_accessor :song, :artist, :url, :ranking
  
     def call
+        Scraper.get_artist_details
+        # Song
         welcome 
         menu
         artist_select
@@ -30,12 +34,19 @@ class Billboard::CLI
             end #case
         end #loop 
     end # menu
+
+    def songs
+       @song = Song.all
+    end
+
     
     def artist_select
         puts "\n\nTo see an artist chart history ranked by performance, enter the Artist's song number (1-100):"
         artist_input = gets.strip
         if artist_input.to_i > 0 && artist_input.to_i <= 100
-            list_of_artist_chart(artist_input)
+            # list_of_artist_chart#(artist_input)
+
+
         elsif artist_input == "exit!"
             puts "Keep on listening. Peace!"
             exit
@@ -54,36 +65,31 @@ class Billboard::CLI
             artist = song[:artist]
             ranking = song[:ranking]
             url = song[:url]
-            new_song = Song.create(title, artist, ranking, url)
+            new_song = Song.create(title, artist, ranking, url)  # This is adding to the Song class
             puts "#{new_song.ranking}. #{new_song.title} - #{new_song.artist}"  
-        end
+        end # end of do
         # binding.pry
     end #list_of_songs
 
 
-    def list_of_artist_chart(whatever_was_chosen)
-       # take in artist input
-       # iterate through Song.all to detect the object whose ranking corresponds to artist_input
-       # pull the value of url off of the found object's url attribute
-       # check to make sure url value is not nil
-       # if not nil pass that url value through as an argument to our Scraper method
-       # output the chart returned from Scraper asociated to the artist
+    def list_of_artist_chart(artist_input)        
+    #     puts "This"
         
         selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
-        whatever_was_chosen == song.ranking
+            artist_input == song.ranking
         end    
-        # binding.pry
-        if selected_song.artist.url != nil && selected_song.artist.details == nil   #if the artist name isn't nil and the url of the artist is nil
-            # selected_song.url  
-            artist_chart = Scraper.get_artist_details(song.artist)     # the URL of the artist chosen/matched
-            Artist.all << artist_chart  # add to the array of Artist collection
+        binding.pry
+        if selected_song.artist != nil && selected_song.url == nil   #if the artist name isn't nil and the url of the artist is nil 
+           Song.url
+            # Scraper.get_artist_detail(artist_info)
+            # artist_chart = Scraper.get_artist_details(song.artist)     # the URL of the artist chosen/matched
+            # Artist.all << artist_chart  # add to the array of Artist collection
         end 
         # puts the details from the newly updated artist_obj returned from Scraper
 
-       # if whatever_was_chosen == Artist.name  ## could we use unless in the code above?
-            # puts "ERROR"
-        # end
-
+    #    if whatever_was_chosen == Artist.name  ## could we use unless in the code above?
+    #         puts "ERROR"
+    #     end
 
     end #list_of_artist_chart
 

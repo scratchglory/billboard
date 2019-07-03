@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
-require_relative './lib/environment'
+require_relative './environment'
 # return an array of hashes
 
 class Scraper
@@ -17,27 +17,26 @@ class Scraper
             song_hash[:artist] = song.css("div.chart-list-item__artist").text.strip
             song_hash[:ranking] = song.css("div.chart-list-item__rank").text.strip
             song_hash[:url] = song.css("div.chart-list-item__artist a")[0] ? song.css("div.chart-list-item__artist a")[0].attributes["href"].value : "nil"
+                # If index 0 has the attribute 'href' then execute, else 'nil'
             song_hash
         end # iterator do
     end
-
-     def self.get_artist_details(artist_obj) # scraping second page
-        #scrape arist_obj.url
+    
+    def self.get_artist_details#(artist_obj) # scraping second page
+        # puts "this is being scraped"
+        
+        # scrape arist_obj.url
         # update artist_obj based on return from scrape
-        #return the updated artist_obj
-        doc = Nokogiri::HTML(open(@@base_url + "/music/billie-eilish"))
+        # return the updated artist_obj
+        doc = Nokogiri::HTML(open(@@base_url + "/music/drake")) # the aritst page url. #{Song.url}
         artist_details = doc.css("div.artist-section.artist-section--chart-history")
-        artist_detail.map do |artist|
-            artist_hash = {}
-            artist_hash[:stats] = artist.css("div.artist-section--chart-history__stats") 
-            artist_hash[:song_title] = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title") # Song title
-            # artist_hash[:name_of_artist]
-            # artist_hash[:peak_rank]
-            artist_hash
+        artist_details.map do |artist|
+            artist_array = [] 
+            song_title = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip # Song title
+            artist_array << song_title
+            binding.pry
         end
-        # binding.pry
-     end
+    end
 
 end #end of class
 
-self.get_artist_details(billie-eilish)
