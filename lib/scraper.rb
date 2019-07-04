@@ -11,7 +11,7 @@ class Scraper < Billboard::CLI
     def self.get_chart
         doc = Nokogiri::HTML(open(@@base_url + "/charts/hot-100"))   
         list_of_songs = doc.css("div.chart-list-item")
-        
+
         list_of_songs.map do |song|     # iterating through each </div.chart-list-item> 
             song_hash = {}
             song_hash[:title] = song.css("div.chart-list-item__title").text.strip
@@ -29,16 +29,16 @@ class Scraper < Billboard::CLI
         # update artist_obj based on return from scrape
         # return the updated artist_obj
         # bill_cli = Billboard::CLI.new.artist_url("#{@selected_song.url}")
-        bill_cli = @@selected_song.url
+        bill_cli = @selected_song.url
         doc = Nokogiri::HTML(open(@@base_url + bill_cli)) # the aritst page url. #{Song.url}
         artist_details = doc.css("div.artist-section.artist-section--chart-history")
         artist_details.map do |artist|
             artist_array = [] 
             song_title = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip # Song title
             artist_array << song_title
-            binding.pry
-        end
-    end
+            artist_array
+            # binding.pry
+        end # end of do
+    end # end of get_arttist_details
 
-end #end of class
-
+end # end of class
