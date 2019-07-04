@@ -1,4 +1,4 @@
-class Song
+class Song 
     attr_accessor :title, :artist, :ranking, :url
     @@all = [] # to store all of the songs created
 

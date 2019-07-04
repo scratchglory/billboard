@@ -23,14 +23,15 @@ class Scraper < Billboard::CLI
         end # iterator do
     end
     
-    def self.get_artist_details#(artist_obj) # scraping second page
+    def get_artist_details#(artist_obj) # scraping second page
         # puts "this is being scraped"
         # scrape arist_obj.url
         # update artist_obj based on return from scrape
         # return the updated artist_obj
-        # bill_cli = Billboard::CLI.new.artist_url("#{@selected_song.url}")
-        bill_cli = @selected_song.url
+       
+        bill_cli = @@selected_song.url
         doc = Nokogiri::HTML(open(@@base_url + bill_cli)) # the aritst page url. #{Song.url}
+        # binding.pry
         artist_details = doc.css("div.artist-section.artist-section--chart-history")
         artist_details.map do |artist|
             artist_array = [] 

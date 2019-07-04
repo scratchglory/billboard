@@ -28,9 +28,9 @@ class Billboard::CLI
             puts "Peace!"
             exit
         else 
-                puts "It's either 'list' or 'exit!'"
-                menu
-            end #loop 
+            puts "It's either 'list' or 'exit!'"
+            menu
+        end #loop 
     end # menu
  
     def list_of_songs
@@ -42,9 +42,8 @@ class Billboard::CLI
             ranking = song[:ranking]
             url = song[:url]
             new_song = Song.create(title, artist, ranking, url)  # This is adding to the Song class
-            puts "#{new_song.ranking}. #{new_song.title} - #{new_song.artist} - #{new_song.url}"  
+            puts "#{new_song.ranking}. #{new_song.title} - #{new_song.artist}"  
         end # end of do
-        # binding.pry
     end #list_of_songs
     
     def artist_select
@@ -60,28 +59,49 @@ class Billboard::CLI
              puts "It's either 1 to 100."
              artist_select
          end # end of if
-     end  # artist_select
+    end  # artist_select
+    
+
  
-     def artist_url(input) 
-         @selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
-             input == song.ranking
-         end # end of do    
-        if @selected_song.url == nil   #if the artist name isn't nil and the url of the artist is nil 
-            puts "ERROR: There is no profile"
-        else
-            artist_chart = Scraper.get_artist_details
-           history = artist_chart.flatten.map do |info|     
-            info.split("\n\n")
-                end
-               history.flatten!
-            #    binding.pry
-               history.flatten.each.with_index(1) {|info, i| p "#{i}. #{info}"}
-            # end #end of do                 
-            # Artist.all << artist_url  # add to the array of Artist collection
-        end # end of if
-       
-        
-     end #artist_chart 
-     
-  
-end # end Class
+#      def artist_url(input) 
+#          @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
+#              input == song.ranking
+#          end # end of do    
+
+#         if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
+#             puts "ERROR: There is no profile"
+#         else
+#             artist_chart = Scraper.new.get_artist_details unless 
+#             history = artist_chart.flatten.map do |info|     
+#             info.split("\n\n")
+#                 end # end of do
+#                history.flatten!
+#             #    binding.pry
+#                artist_chart = history.flatten.each.with_index(1) {|info, i| p "#{i}. #{info}"
+#                Artist.create(artist_chart)
+#                binding.pry           
+#             # Artist.all << artist_url  # add to the array of Artist collection
+#         end # end of if       
+#         artist_select
+#     end #artist_chart 
+    def artist_url(input) 
+        @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
+            input == song.ranking
+        end # end of do    
+
+            if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
+                puts "ERROR: There is no profile"
+            else
+                artist_chart = Scraper.new.get_artist_details
+                history = artist_chart.flatten.map do |info|     
+                        info.split("\n\n")
+                    end # end of do
+                history.flatten!
+                artist_history = history.flatten.each.with_index(1) {|info, i| p "#{i}. #{info}"}
+                binding.pry
+                # Artist.create(artist_history)
+                # Artist.all << artist_url  # add to the array of Artist collection
+            end # end of if
+            artist_select
+    end # end of artist
+end # end of class

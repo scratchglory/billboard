@@ -5,15 +5,14 @@
 #### check to not rescrape (selecting the same number again) => checking through .all
 
 class Artist  # also considered Constance
-    attr_accessor :name, :url, :song
+    attr_accessor :name, :songs
     @@all =[]
 
-     def initialize(name, song, url)
+     def initialize(name = nil, songs = nil)
         @name = name
-        @url = url
-        @song = song
+        @songs = songs
         save  # When a new objet is made, it will save itself
-    end # initialize
+     end # initialize
 
     def self.all 
         @@all
@@ -23,17 +22,17 @@ class Artist  # also considered Constance
         @@all << self
     end # save
 
-    def self.create(name, url, song)
-        new_artist = self.new(name, url, song)
+    def self.create(songs)
+        new_artist = self.new(name, songs)
         new_artist.save
         new_artist
     end # create
 
 
-    def self.find_by_name(name) # name is a string 
-        # iterate through the @@all array (detect), returning the element of the array for which the following block returns true
-        @@all.detect {|artist| artist.name == name}
-    end # find_by_name
+    # def self.find_by_name(name) # name is a string 
+    #     # iterate through the @@all array (detect), returning the element of the array for which the following block returns true
+    #     @@all.detect {|artist| artist.name == name}
+    # end # find_by_name
 
 end # Class
  
