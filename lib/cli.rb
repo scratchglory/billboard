@@ -9,8 +9,6 @@ class Billboard::CLI
         welcome 
         menu
         artist_select
-        # Scraper.get_artist_details # testing pry
-        # list_of_artist_chart
     end #call
 
     def welcome
@@ -61,29 +59,6 @@ class Billboard::CLI
          end # end of if
     end  # artist_select
     
-
- 
-#      def artist_url(input) 
-#          @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
-#              input == song.ranking
-#          end # end of do    
-
-#         if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
-#             puts "ERROR: There is no profile"
-#         else
-#             artist_chart = Scraper.new.get_artist_details unless 
-#             history = artist_chart.flatten.map do |info|     
-#             info.split("\n\n")
-#                 end # end of do
-#                history.flatten!
-#             #    binding.pry
-#                artist_chart = history.flatten.each.with_index(1) {|info, i| p "#{i}. #{info}"
-#                Artist.create(artist_chart)
-#                binding.pry           
-#             # Artist.all << artist_url  # add to the array of Artist collection
-#         end # end of if       
-#         artist_select
-#     end #artist_chart 
     def artist_url(input) 
         @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
             input == song.ranking
@@ -92,15 +67,15 @@ class Billboard::CLI
             if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
                 puts "ERROR: There is no profile"
             else
+                puts "\nThis is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
                 artist_chart = Scraper.new.get_artist_details
                 history = artist_chart.flatten.map do |info|     
                         info.split("\n\n")
                     end # end of do
                 history.flatten!
                 artist_history = history.flatten.each.with_index(1) {|info, i| p "#{i}. #{info}"}
-                binding.pry
-                # Artist.create(artist_history)
-                # Artist.all << artist_url  # add to the array of Artist collection
+                # binding.pry
+                Artist.create(@@selected_song.artist, artist_history)
             end # end of if
             artist_select
     end # end of artist
