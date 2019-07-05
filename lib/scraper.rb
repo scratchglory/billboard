@@ -22,20 +22,39 @@ class Scraper < Billboard::CLI  # Inheritence
         end # iterator do
     end
     
-    def get_artist_details       
-        bill_cli = @@selected_song.url # getting it from the cli class .artist_url
-        doc = Nokogiri::HTML(open(@@base_url + bill_cli)) 
-        # binding.pry
-        artist_details = doc.css("div.artist-section.artist-section--chart-history")
+    # def get_artist_details       
+    #     bill_cli = @@selected_song.url # getting it from the cli class .artist_url
+    #     doc = Nokogiri::HTML(open(@@base_url + bill_cli)) 
+    #     # binding.pry
+    #     artist_details = doc.css("div.artist-section.artist-section--chart-history")
+    #     artist_details.map do |artist|
+    #         # artist_array = [] 
+    #         song_title = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip # Song title
+    #         # artist_array << song_title
+    #         # artist_array
+    #         # artist_details
+    #         song_title
+    #         # binding.pry
+    #     end # end of do
+    # end # end of get_arttist_details
+
+    def get_artist_details0(url)
+        doc = Nokogiri::HTML(open(@@base_url + url))
+       
+        artist_details = doc.css("main#main")
         artist_details.map do |artist|
-            # artist_array = [] 
-            song_title = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip # Song title
-            # artist_array << song_title
-            # artist_array
-            # artist_details
-            song_title
-            # binding.pry
-        end # end of do
-    end # end of get_arttist_details
+            artist_hash = {}
+            artist_hash[:name] = artist.css(".artist-header__title").first.text.strip
+            artist_hash[:songs] = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip
+            artist_hash
+        end
+
+        update_name = Artist.all.detect {|info| info.url == url}
+        binding.pry
+        update_name.name = 
+    end
+
+
+
 
 end # end of class

@@ -5,11 +5,11 @@ class Billboard::CLI
     attr_accessor :song, :artist, :url, :ranking
  
     def call
-        # Song # testing pry
+        Scraper.get_artist_details0
         welcome 
         menu
         artist_select
-        # Scraper.get_artist_details
+        reselect
     end #call
 
     def welcome
@@ -24,8 +24,7 @@ class Billboard::CLI
         when "list"
             list_of_songs
         when "exit!"
-            puts "Peace!"
-            exit
+            goodbye
         else 
             puts "It's either 'list' or 'exit!'"
             menu
@@ -53,8 +52,7 @@ class Billboard::CLI
              self.artist_url(artist_input)
             #  list_of_artist_chart
          elsif artist_input == "exit!"
-             puts "Keep on listening. Peace!"
-             exit
+             goodbye
          else
              puts "It's either 1 to 100."
              artist_select
@@ -69,6 +67,7 @@ class Billboard::CLI
             if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
                 puts "ERROR: Server Error"
             else
+            # elsif
                 puts "------------------------------------------------------------------------"
                 puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
                 artist_chart = Scraper.new.get_artist_details
@@ -78,12 +77,28 @@ class Billboard::CLI
                 history.flatten!        # This is needed so that the results stay in place and collabs the array into one
                 artist_history = history.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
                 Artist.create(@@selected_song.artist, input, artist_history, @@selected_song.url)
-               binding.pry 
-                # else 
-                # Artist.all.detect do |info|
-                # info.url 
-                #   
-            end # end of if
+                # binding.pry 
+            end # end of if            
+    end # end of artist_url
+
+    def reselect
+        puts "Enter 'list' to see the list and choose an artist's chart again"
+        puts "Enter 'exit!' to exit"
+        input = gets.strip
+        if input == "exit!"
+            goodbye
+        elsif input == "list"
+            list_of_songs
             artist_select
-    end # end of artist
+        else 
+            puts "It's either 'list' or 'exit!'"
+            reselect
+        end # end of if 
+    end # end of reselect
+
+    def goodbye
+        puts "Keep on listening. Peace Out!"
+        exit
+    end # end of goodbye
+
 end # end of class
