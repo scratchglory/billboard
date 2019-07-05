@@ -5,7 +5,7 @@ require_relative './environment'
 require_relative './cli'
 # return an array of hashes
 
-class Scraper < Billboard::CLI
+class Scraper < Billboard::CLI  # Inheritence
     @@base_url = "https://www.billboard.com"
     
     def self.get_chart
@@ -23,21 +23,18 @@ class Scraper < Billboard::CLI
         end # iterator do
     end
     
-    def get_artist_details#(artist_obj) # scraping second page
-        # puts "this is being scraped"
-        # scrape arist_obj.url
-        # update artist_obj based on return from scrape
-        # return the updated artist_obj
-       
+    def get_artist_details       
         bill_cli = @@selected_song.url
         doc = Nokogiri::HTML(open(@@base_url + bill_cli)) # the aritst page url. #{Song.url}
         # binding.pry
         artist_details = doc.css("div.artist-section.artist-section--chart-history")
         artist_details.map do |artist|
-            artist_array = [] 
+            # artist_array = [] 
             song_title = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip # Song title
-            artist_array << song_title
-            artist_array
+            # artist_array << song_title
+            # artist_array
+            # artist_details
+            song_title
             # binding.pry
         end # end of do
     end # end of get_arttist_details
