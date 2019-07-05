@@ -8,7 +8,7 @@ class Artist  # also considered Constance
     attr_accessor :name, :songs # :ranking, :url
     @@all =[]
 
-     def initialize(name, songs # ranking, url)
+     def initialize(name, songs) # ranking, url)
         @name = name
         @ranking = ranking
         @songs = songs
@@ -23,8 +23,8 @@ class Artist  # also considered Constance
         @@all << self
     end # save
 
-    def self.create(name, songs # ranking, url)
-        new_artist = self.new(name, songs # ranking, url)
+    def self.create(name, songs) # ranking, url)
+        new_artist = self.new(name, songs) # ranking, url)
         new_artist.save
         new_artist
     end # create
