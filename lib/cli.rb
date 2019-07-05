@@ -45,7 +45,7 @@ class Billboard::CLI
         end # end of do
     end #list_of_songs
     
-    def artist_select
+    def artist_select # Selecting the artist's chart history
         puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         puts "\nTo see an artist chart history ranked by performance, enter the Artist's song number (1-100):"
         artist_input = gets.strip
@@ -76,11 +76,13 @@ class Billboard::CLI
                     info.split("\n\n")
                 end # end of do
                 history.flatten!        # This is needed so that the results stay in place and collabs the array into one
-                artist_history = history.each.with_index(1) {|info, i| p "#{i}. #{info}"}
-                Artist.create(@@selected_song.artist, artist_history, @@selected_song.url)
-            #    binding.pry 
-                # else @@selected_song.url == Artist.new.url
-                #     Artist.songs
+                artist_history = history.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
+                Artist.create(@@selected_song.artist, input, artist_history, @@selected_song.url)
+               binding.pry 
+                # else 
+                # Artist.all.detect do |info|
+                # info.url 
+                #   
             end # end of if
             artist_select
     end # end of artist

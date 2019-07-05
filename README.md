@@ -1,8 +1,6 @@
 # Billboard
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/billboard`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to Billboard's Top Hot 100's List. This will give you a list of todays top hot 100 songs on Billboard's website.
 
 ## Installation
 

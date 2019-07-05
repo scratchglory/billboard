@@ -3,7 +3,6 @@ require 'open-uri'
 require 'pry'
 require_relative './environment'
 require_relative './cli'
-# return an array of hashes
 
 class Scraper < Billboard::CLI  # Inheritence
     @@base_url = "https://www.billboard.com"
@@ -24,8 +23,8 @@ class Scraper < Billboard::CLI  # Inheritence
     end
     
     def get_artist_details       
-        bill_cli = @@selected_song.url
-        doc = Nokogiri::HTML(open(@@base_url + bill_cli)) # the aritst page url. #{Song.url}
+        bill_cli = @@selected_song.url # getting it from the cli class .artist_url
+        doc = Nokogiri::HTML(open(@@base_url + bill_cli)) 
         # binding.pry
         artist_details = doc.css("div.artist-section.artist-section--chart-history")
         artist_details.map do |artist|
