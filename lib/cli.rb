@@ -5,7 +5,7 @@ class Billboard::CLI
     attr_accessor :song, :artist, :url, :ranking
  
     def call
-        Scraper.new.get_artist_details0("/music/drake")
+        # Scraper.new.get_artist_details0("/music/drake")
         welcome 
         menu
         artist_select
@@ -63,39 +63,46 @@ class Billboard::CLI
         @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
             input == song.ranking
         end # end of do    
-# binding.pry
-            if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
-                puts "ERROR: Server Error"
-            # else
-            elsif Artist.all.include?(@@selected_song.url)                   # if the @@selected_song.artist == a name in the Artist class
+        # binding.pry
+            # if
+                # puts "------------------------------------------------------------------------"
+                # puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
+                # artist_chart = Scraper.new.get_artist_details0(@@selected_song.url)
+                # history = artist_chart.each do |info|
+                #     i = 0
+                #     name = info[:name]
+                #     songs = info[:songs]
+                #     url = info[:url]
+                #     chart = Artist.create(name, songs, url) 
+                #     songs_split = chart.songs.split("\n\n") 
+                #     songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
+              
+                # end # end of do
+                if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
+                    puts "ERROR: Server Error or profile not found!"
+                else  # if the @@selected_song.url != Artist.all
                 puts "######################"
-                Artist.all.detect do |artist|
-                    @@selected_song.artist == artist.name
-                    puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
-                    songs_split = artist.songs.split("\n\n") 
-                    songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
-                    # binding.pry
-                end 
-                Artist.all               
-            else
-                puts "------------------------------------------------------------------------"
-                puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
                 artist_chart = Scraper.new.get_artist_details0(@@selected_song.url)
-                history = artist_chart.each do |info|
-                    # i = 0
-                    name = info[:name]
-                    songs = info[:songs]
-                    url = info[:url]
-                    chart = Artist.create(name, songs, url) 
-                    songs_split = chart.songs.split("\n\n") 
-                    songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
+                Artist.all.detect do |artist|
                     # binding.pry
+                    @@selected_song.url == artist[:url]
+                    puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
+                    songs = artist[:songs]
+                    songs_split = songs.split("\n\n") 
+                    songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
                 end # end of do
-            end # end of if   
+                puts Artist.all
+                # else Artist.all.detect {|info| info[:url] == selected_song}
+                #     puts "---------------"
+                #     puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
+                #     # songs = 
+                #     # songs_split = songs.split("\n\n") 
+                #     # songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
+            #  puts Artist.all
+            end 
+            # binding.pry
             reselect         
     end # end of artist_url
-
-
 
     def reselect
         puts "---------------------------------------------------------------"

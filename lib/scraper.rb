@@ -4,7 +4,7 @@ require 'pry'
 require_relative './environment'
 require_relative './cli'
 
-class Scraper < Billboard::CLI  # Inheritence
+class Scraper #< Billboard::CLI  # Inheritence
     @@base_url = "https://www.billboard.com"
     
     def self.get_chart
@@ -22,9 +22,8 @@ class Scraper < Billboard::CLI  # Inheritence
         end # iterator do
     end
     
-    # def get_artist_details       
-    #     bill_cli = @@selected_song.url # getting it from the cli class .artist_url
-    #     doc = Nokogiri::HTML(open(@@base_url + bill_cli)) 
+    # def get_artist_details0(url)
+    #     doc = Nokogiri::HTML(open(@@base_url + url))
     #     # binding.pry
     #     artist_details = doc.css("div.artist-section.artist-section--chart-history")
     #     artist_details.map do |artist|
@@ -40,7 +39,6 @@ class Scraper < Billboard::CLI  # Inheritence
 
     def get_artist_details0(url)
         doc = Nokogiri::HTML(open(@@base_url + url))
-       
         artist_details = doc.css("main#main")
         artist_hash = {}
         artist_details.map do |artist|
@@ -49,10 +47,16 @@ class Scraper < Billboard::CLI  # Inheritence
             artist_hash[:url] = url
             artist_hash
         end # end of do
-        binding.pry
-        updated_chart = Artist.all.detect {|info| info.url == url}
-        # updated_chart.name = 
-        # binding.pry
+        Artist.all << artist_hash
+    
+
+    # binding.pry
+    #     updated_chart = Artist.all.detect {|info| info[:url] == url}
+    #     # updated_chart.name = doc.css("main#main .artist-header__title").first.text.strip if artist_hash[:name]  # artist name 
+    #     updated_chart[:songs]= doc.css("main#main div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip if artist_hash[:songs]
+    # end
+
     end # end of get_artist_details0
 
+    
 end # end of class
