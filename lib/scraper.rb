@@ -18,8 +18,9 @@ class Scraper #< Billboard::CLI  # Inheritence
             song_hash[:ranking] = song.css("div.chart-list-item__rank").text.strip
             song_hash[:url] = song.css("div.chart-list-item__artist a")[0] ? song.css("div.chart-list-item__artist a")[0].attributes["href"].value : "nil"
                 # If index 0 has the attribute 'href' then execute, else 'nil'
-            song_hash
+            Song.all << song_hash
         end # iterator do
+        
     end
     
     # def get_artist_details0(url)
@@ -37,7 +38,7 @@ class Scraper #< Billboard::CLI  # Inheritence
     #     end # end of do
     # end # end of get_arttist_details
 
-    def get_artist_details0(url)
+    def get_artist_details(url)
         doc = Nokogiri::HTML(open(@@base_url + url))
         artist_details = doc.css("main#main")
         artist_hash = {}

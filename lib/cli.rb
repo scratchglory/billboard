@@ -5,7 +5,8 @@ class Billboard::CLI
     attr_accessor :song, :artist, :url, :ranking
  
     def call
-        # Scraper.new.get_artist_details0("/music/drake")
+        # Scraper.new.get_artist_details("/music/drake")
+        song_scraper
         welcome 
         menu
         artist_select
@@ -31,17 +32,31 @@ class Billboard::CLI
         end #loop 
     end # menu
  
+    def song_scraper # first needs to get called
+        Scraper.get_chart
+    end
+
+
+    # should have the list of songs from Scraper class
     def list_of_songs
-        # should have the list of songs from Scraper class
-        song_chart = Scraper.get_chart
-        song_chart.each do |song|
+        # song_chart = Scraper.get_chart
+        # song_chart.each do |song|
+        #     title = song[:title]
+        #     artist = song[:artist]
+        #     ranking = song[:ranking]
+        #     url = song[:url]
+        #     new_song = Song.create(title, artist, ranking, url)  # This is adding to the Song class
+        #     puts "#{new_song.ranking}. #{new_song.title} - #{new_song.artist} - #{new_song.url}" 
+        # end # end of do
+
+        Song.all.each do |song|
             title = song[:title]
             artist = song[:artist]
             ranking = song[:ranking]
             url = song[:url]
-            new_song = Song.create(title, artist, ranking, url)  # This is adding to the Song class
-            puts "#{new_song.ranking}. #{new_song.title} - #{new_song.artist} - #{new_song.url}" 
+            puts "#{ranking}. #{title} - #{artist} - #{url}"
         end # end of do
+        binding.pry
     end #list_of_songs
     
     def artist_select # Selecting the artist's chart history
@@ -61,13 +76,13 @@ class Billboard::CLI
 
     def artist_url(input) 
         @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
-            input == song.ranking
+            input == song[:ranking]
         end # end of do    
         # binding.pry
             # if
                 # puts "------------------------------------------------------------------------"
                 # puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
-                # artist_chart = Scraper.new.get_artist_details0(@@selected_song.url)
+                # artist_chart = Scraper.new.get_artist_details(@@selected_song.url)
                 # history = artist_chart.each do |info|
                 #     i = 0
                 #     name = info[:name]
@@ -76,16 +91,15 @@ class Billboard::CLI
                 #     chart = Artist.create(name, songs, url) 
                 #     songs_split = chart.songs.split("\n\n") 
                 #     songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
-              
                 # end # end of do
-                if @@selected_song.url == "nil"   #if the artist name isn't nil and the url of the artist is nil 
+                if @@selected_song[:url] == "nil"   #if the artist name isn't nil and the url of the artist is nil 
                     puts "ERROR: Server Error or profile not found!"
-                else  # if the @@selected_song.url != Artist.all
+                else
                 puts "######################"
-                artist_chart = Scraper.new.get_artist_details0(@@selected_song.url)
+                artist_chart = Scraper.new.get_artist_details(@@selected_song[:url])
                 Artist.all.detect do |artist|
                     # binding.pry
-                    @@selected_song.url == artist[:url]
+                    @@selected_song[:url] == artist[:url]
                     puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
                     songs = artist[:songs]
                     songs_split = songs.split("\n\n") 
@@ -99,7 +113,7 @@ class Billboard::CLI
                 #     # songs_split = songs.split("\n\n") 
                 #     # songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
             #  puts Artist.all
-            end 
+            end # end of if
             # binding.pry
             reselect         
     end # end of artist_url
