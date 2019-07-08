@@ -28,14 +28,6 @@ class Artist  # also considered Constance
         new_artist.save
         new_artist
     end # create
-
-    
-    def self.find_by_ranking(input) # name is a string 
-        # iterate through the @@all array (detect), returning the element of the array for which the following block returns true
-        # @@all.detect {|info| info.ranking == input}
-        puts "this is #{input}"
-    end # find_by_name
-
 end # Class
  
 

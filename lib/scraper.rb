@@ -39,16 +39,16 @@ class Scraper #< Billboard::CLI  # Inheritence
     # end # end of get_arttist_details
 
     def get_artist_details(url)
-        doc = Nokogiri::HTML(open(@@base_url + url))
+        doc = Nokogiri::HTML(open(@@base_url + url,'User-Agent' => 'ruby'))
         artist_details = doc.css("main#main")
         artist_hash = {}
         artist_details.map do |artist|
             artist_hash[:name] = artist.css(".artist-header__title").first.text.strip
             artist_hash[:songs] = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip
             artist_hash[:url] = url
-            artist_hash
+            Artist.all << artist_hash
         end # end of do
-        Artist.all << artist_hash
+        # binding.pry
     
 
     # binding.pry

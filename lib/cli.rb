@@ -1,17 +1,32 @@
 # itterate over hashes to return a song/artist
 require_relative './environment'
+require 'open-uri'
 require 'pry'
 class Billboard::CLI
     attr_accessor :song, :artist, :url, :ranking
  
     def call
-        # Scraper.new.get_artist_details("/music/drake")
         song_scraper
+        # Scraper.new.get_artist_details("/music/drake")
+        artist_scraper
         welcome 
         menu
         artist_select
         reselect
     end #call
+  
+    def song_scraper # first needs to get called
+        Scraper.get_chart
+    end # end of song_scraper
+
+    def artist_scraper
+            Song.all.each do |song|
+                if song[:url] != "nil"
+                    artist = Scraper.new.get_artist_details(song[:url])
+                    artist
+                end # end of if
+            end # end of do
+    end # end of artist_scraper
 
     def welcome
         puts "Welcome to the list of Billboards Top Hot 100 Songs!"
@@ -32,10 +47,6 @@ class Billboard::CLI
         end #loop 
     end # menu
  
-    def song_scraper # first needs to get called
-        Scraper.get_chart
-    end
-
 
     # should have the list of songs from Scraper class
     def list_of_songs
@@ -56,7 +67,6 @@ class Billboard::CLI
             url = song[:url]
             puts "#{ranking}. #{title} - #{artist} - #{url}"
         end # end of do
-        binding.pry
     end #list_of_songs
     
     def artist_select # Selecting the artist's chart history
@@ -65,7 +75,6 @@ class Billboard::CLI
         artist_input = gets.strip
          if artist_input.to_i > 0 && artist_input.to_i <= 100
              self.artist_url(artist_input)
-            #  list_of_artist_chart
          elsif artist_input == "exit!"
              goodbye
          else
@@ -96,16 +105,16 @@ class Billboard::CLI
                     puts "ERROR: Server Error or profile not found!"
                 else
                 puts "######################"
-                artist_chart = Scraper.new.get_artist_details(@@selected_song[:url])
                 Artist.all.detect do |artist|
                     # binding.pry
-                    @@selected_song[:url] == artist[:url]
+                    @@selected_song[:url] == artist.url
                     puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
                     songs = artist[:songs]
                     songs_split = songs.split("\n\n") 
                     songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
+                    end
                 end # end of do
-                puts Artist.all
+        
                 # else Artist.all.detect {|info| info[:url] == selected_song}
                 #     puts "---------------"
                 #     puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
@@ -113,7 +122,7 @@ class Billboard::CLI
                 #     # songs_split = songs.split("\n\n") 
                 #     # songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
             #  puts Artist.all
-            end # end of if
+
             # binding.pry
             reselect         
     end # end of artist_url
