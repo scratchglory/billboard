@@ -1,6 +1,6 @@
 # Billboard
 
-Welcome to Billboard's Top Hot 100's List. This will give you a list of todays top hot 100 songs on Billboard's website.
+Welcome to Billboard's Top Hot 100's List. This will give you a list of todays top hot 100 songs on Billboard's website and provide a performance chart on a selected artist.
 
 ## Installation
 
