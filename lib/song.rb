@@ -1,3 +1,5 @@
+# called upon CLI.list_of_songs
+
 class Song 
     attr_accessor :title, :artist, :ranking, :url
     @@all = [] # to store all of the songs created

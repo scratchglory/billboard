@@ -39,3 +39,9 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Billboard project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/billboard/blob/master/CODE_OF_CONDUCT.md).
+
+
+## References
+
+ Billboard chart: https://www.billboard.com/charts/hot-100
+ ASCII art generator: http://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20

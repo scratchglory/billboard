@@ -19,24 +19,8 @@ class Scraper
             song_hash[:url] = song.css("div.chart-list-item__artist a")[0] ? song.css("div.chart-list-item__artist a")[0].attributes["href"].value : "nil"
                 # If index 0 has the attribute 'href' then execute, else 'nil'
             Song.all << song_hash
-        end # iterator do
-        
-    end
-    
-    # def get_artist_details0(url)
-    #     doc = Nokogiri::HTML(open(@@base_url + url))
-    #     # binding.pry
-    #     artist_details = doc.css("div.artist-section.artist-section--chart-history")
-    #     artist_details.map do |artist|
-    #         # artist_array = [] 
-    #         song_title = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip # Song title
-    #         # artist_array << song_title
-    #         # artist_array
-    #         # artist_details
-    #         song_title
-    #         # binding.pry
-    #     end # end of do
-    # end # end of get_arttist_details
+        end # iterator do 
+    end # end of Scraper
 
     def get_artist_details(url)
         doc = Nokogiri::HTML(open(@@base_url + url,'User-Agent' => 'ruby'))

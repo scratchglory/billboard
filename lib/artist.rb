@@ -1,16 +1,11 @@
-# To scrape/pull the url for the artist selected.
-# Artist class
-## instantiated with the artist's name and url
-### create Song.artist == Artist.new()
-#### check to not rescrape (selecting the same number again) => checking through .all
+# called upon for use in CLI.artist_select
 
 class Artist  # also considered Constance
-    attr_accessor :name, :songs, :url # :ranking, :url
+    attr_accessor :name, :songs, :url
     @@all =[]
 
-     def initialize(name, songs, url) # ranking, url)
+     def initialize(name, songs, url)
         @name = name
-        # @ranking = ranking
         @songs = songs
         @url = url
      end # initialize
@@ -23,14 +18,10 @@ class Artist  # also considered Constance
         @@all << self
     end # save
 
-    def self.create(name, songs, url) # ranking, url)
-        new_artist = self.new(name, songs, url) # ranking, url)
+    def self.create(name, songs, url)
+        new_artist = self.new(name, songs, url)
         new_artist.save
         new_artist
     end # create
 end # Class
  
-
-# #<Artist:0x0000000002f88138 @name="Billie Eilish", @songs="Bad Guy\n\nBury A Friend\n\nWhen The Party's Over\n\nWish You Were Gay\n\nXanny">
-
-##<Artist:0x0000000003fc3b88 @name="Drake", @songs="Work\n\nOne Dance\n\nGod's Plan\n\nNice For What\n\nIn My Feelings"

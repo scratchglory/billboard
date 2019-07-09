@@ -1,23 +1,12 @@
-# itterate over hashes to return a song/artist
 require_relative './environment'
-require 'open-uri'
-require 'pry'
+require 'terminal-table'
+
 class Billboard::CLI
     attr_accessor :song, :artist, :url, :ranking
  
     def call
         song_scraper
         artist_scraper
-        puts " 
- _____________________________________________________________________________
-|  ____   _  _  _  _                             _  _       __   ___    ___   |
-| |  _   (_)| || || |                           | |( )     /_ | / _    / _    |
-| | |_) | _ | || || |__    ___    __ _  _ __  __| ||/ ___   | || | | || | | | |
-| |  _ < | || || || '_    / _    / _` || '__|/ _` |  / __|  | || | | || | | | |
-| | |_) || || || || |_) || (_) || (_| || |  | (_| |   __    | || |_| || |_| | |
-| |____/ |_||_||_||_.__/   ___/   __,_||_|    __,_|  |___/  |_|  ___/   ___/  |
-|_____________________________________________________________________________|
-								 By Adella :)"
         welcome 
         menu
         artist_select
@@ -38,6 +27,16 @@ class Billboard::CLI
     end # end of artist_scraper
 
     def welcome
+        puts " 
+ _____________________________________________________________________________
+|  ____   _  _  _  _                             _  _       __   ___    ___   |
+| |  _   (_)| || || |                           | |( )     /_ | / _    / _    |
+| | |_) | _ | || || |__    ___    __ _  _ __  __| ||/ ___   | || | | || | | | |
+| |  _ < | || || || '_    / _    / _` || '__|/ _` |  / __|  | || | | || | | | |
+| | |_) || || || || |_) || (_) || (_| || |  | (_| |   __    | || |_| || |_| | |
+| |____/ |_||_||_||_.__/   ___/   __,_||_|    __,_|  |___/  |_|  ___/   ___/  |
+|_____________________________________________________________________________|
+								 By Adella :)"
         puts "Welcome to the list of Billboards Top Hot 100 Songs!"
         puts "----------------------------------------------------"
         puts "For a list of Billboard's 100, type 'list', or 'exit!' to exit."
@@ -56,30 +55,25 @@ class Billboard::CLI
         end #loop 
     end # menu
  
-
     # should have the list of songs from Scraper class
     def list_of_songs
-        # song_chart = Scraper.get_chart
-        # song_chart.each do |song|
-        #     title = song[:title]
-        #     artist = song[:artist]
-        #     ranking = song[:ranking]
-        #     url = song[:url]
-        #     new_song = Song.create(title, artist, ranking, url)  # This is adding to the Song class
-        #     puts "#{new_song.ranking}. #{new_song.title} - #{new_song.artist} - #{new_song.url}" 
-        # end # end of do
-
+        puts "\n"
+        rows = []
         Song.all.each do |song|
             title = song[:title]
             artist = song[:artist]
             ranking = song[:ranking]
             url = song[:url]
-            puts "#{ranking}. #{title} - #{artist}"
+            # puts "#{ranking}. #{title} - #{artist}"
+            rows << [ranking, title, artist]
         end # end of do
+        table = Terminal::Table.new :headings => ['Ranking', 'Song', 'Aritst(s)'], :rows => rows
+        puts table
     end #list_of_songs
-    
+  
     def artist_select # Selecting the artist's chart history
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        # puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        sleep(3)
         puts "\nTo see an artist chart history ranked by performance, enter the Artist's song number (1-100):"
         artist_input = gets.strip
          if artist_input.to_i > 0 && artist_input.to_i <= 100
