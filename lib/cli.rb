@@ -7,8 +7,17 @@ class Billboard::CLI
  
     def call
         song_scraper
-        # Scraper.new.get_artist_details("/music/drake")
         artist_scraper
+        puts " 
+ _____________________________________________________________________________
+|  ____   _  _  _  _                             _  _       __   ___    ___   |
+| |  _   (_)| || || |                           | |( )     /_ | / _    / _    |
+| | |_) | _ | || || |__    ___    __ _  _ __  __| ||/ ___   | || | | || | | | |
+| |  _ < | || || || '_    / _    / _` || '__|/ _` |  / __|  | || | | || | | | |
+| | |_) || || || || |_) || (_) || (_| || |  | (_| |   __    | || |_| || |_| | |
+| |____/ |_||_||_||_.__/   ___/   __,_||_|    __,_|  |___/  |_|  ___/   ___/  |
+|_____________________________________________________________________________|
+								 By Adella :)"
         welcome 
         menu
         artist_select
@@ -84,13 +93,13 @@ class Billboard::CLI
     end  # artist_select
 
     def artist_url(input) 
-        @@selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
+        selected_song = Song.all.detect do |song|       # iterates through Song.all and outputs the artist that matches the artist that chosen
             input == song[:ranking]
         end # end of do    
             # if
                 # puts "------------------------------------------------------------------------"
-                # puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
-                # artist_chart = Scraper.new.get_artist_details(@@selected_song.url)
+                # puts "This is " + "#{selected_song.artist}'s" + " top 5 performance chart:" 
+                # artist_chart = Scraper.new.get_artist_details(selected_song.url)
                 # history = artist_chart.each do |info|
                 #     i = 0
                 #     name = info[:name]
@@ -100,13 +109,13 @@ class Billboard::CLI
                 #     songs_split = chart.songs.split("\n\n") 
                 #     songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
                 # end # end of do
-                if @@selected_song[:url] == "nil"   #if the url of the artist is nil 
+                if selected_song[:url] == "nil"   #if the url of the artist is nil 
                     puts "ERROR: Server Error or profile not found!"
                 else
-                    puts "######################"
+                    puts "---------------------------------------------------------------"
                     Artist.all.detect do |artist|
-                        if @@selected_song[:url] == artist[:url]
-                            puts "This is " + "#{@@selected_song[:artist]}'s" + " top 5 performance chart:" 
+                        if selected_song[:url] == artist[:url]
+                            puts "This is " + "#{selected_song[:artist]}'s" + " top performance chart:" 
                             songs = artist[:songs]
                             songs_split = songs.split("\n\n") 
                             songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
@@ -117,7 +126,7 @@ class Billboard::CLI
         
                 # else Artist.all.detect {|info| info[:url] == selected_song}
                 #     puts "---------------"
-                #     puts "This is " + "#{@@selected_song.artist}'s" + " top 5 performance chart:" 
+                #     puts "This is " + "#{selected_song.artist}'s" + " top 5 performance chart:" 
                 #     # songs = 
                 #     # songs_split = songs.split("\n\n") 
                 #     # songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}
@@ -126,7 +135,7 @@ class Billboard::CLI
     end # end of artist_url
 
     def reselect
-        sleep(3)
+        sleep(2)
         puts "---------------------------------------------------------------"
         puts "Enter 'list' to see the list and choose an artist's chart again"
         puts "Enter 'exit!' to exit"
@@ -143,7 +152,18 @@ class Billboard::CLI
     end # end of reselect
 
     def goodbye
-        puts "Keep on listening. Peace Out!"
+        puts "Keep on listening!"
+        puts "
+         _                       ____
+        ( )                     |____|
+     ___|/________|)____________|____|_______
+    |__/|/_)_|____|_______|)__(_)__(_)_______|
+    |_(_|_/__|__(_)_______| _________________|
+    |___|____|__________(_)__________________|
+    |________|_________________________(_)___|
+                                         |
+                                         |)"   
+
         exit
     end # end of goodbye
 

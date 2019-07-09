@@ -4,7 +4,7 @@ require 'pry'
 require_relative './environment'
 require_relative './cli'
 
-class Scraper #< Billboard::CLI  # Inheritence
+class Scraper
     @@base_url = "https://www.billboard.com"
     
     def self.get_chart
@@ -48,16 +48,5 @@ class Scraper #< Billboard::CLI  # Inheritence
             artist_hash[:url] = url
             Artist.all << artist_hash
         end # end of do
-        # binding.pry
-    
-
-    # binding.pry
-    #     updated_chart = Artist.all.detect {|info| info[:url] == url}
-    #     # updated_chart.name = doc.css("main#main .artist-header__title").first.text.strip if artist_hash[:name]  # artist name 
-    #     updated_chart[:songs]= doc.css("main#main div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip if artist_hash[:songs]
-    # end
-
     end # end of get_artist_details0
-
-    
 end # end of class
