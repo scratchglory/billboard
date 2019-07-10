@@ -15,7 +15,7 @@ class Artist  # also considered Constance
     end # all
 
     def save
-        @@all << self
+        self.class.all << self
     end # save
 
     def self.create(name, songs, url)
@@ -23,5 +23,7 @@ class Artist  # also considered Constance
         new_artist.save
         new_artist
     end # create
+
+
 end # Class
  

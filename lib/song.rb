@@ -17,7 +17,7 @@ class Song
     end #self.all
 
     def save # creating the songs with artist
-        @@all << self        
+        self.class.all << self        
     end # save
 
     def self.create(title, artist, ranking, url)
@@ -26,7 +26,16 @@ class Song
         new_song
     end # create
 
-    # binding.pry
+    # def artist=(name)  # Artist has name, song, url
+    #     artist = Artist.new(name)
+
+    # end # end of artist=
+
+    def self.has_songs(artist_name)
+        # binding.pry
+        Artist.all.find {|artist| artist.name == artist_name}
+    end # end of has_songs
+      
 
 end #Class
 
