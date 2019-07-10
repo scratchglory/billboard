@@ -18,9 +18,11 @@ Or install it yourself as:
 
     $ gem install billboard
 
-## Usage
-
-
+## Built With
+Nokogiri
+Open-uri
+terminal-table gem by: TJ Holowaychuk, Scott J. Goldman
+Built on Visual Studio Code
 
 ## Development
 
@@ -40,8 +42,9 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 Everyone interacting in the Billboard project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/billboard/blob/master/CODE_OF_CONDUCT.md).
 
+## Acknowledgements
 
-## References
-
+ My cohorts and fellow classmates
+ Ruby-Gems: https://rubygems.org/
  Billboard chart: https://www.billboard.com/charts/hot-100
  ASCII art generator: http://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20

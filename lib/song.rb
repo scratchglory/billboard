@@ -26,16 +26,10 @@ class Song
         new_song
     end # create
 
-    # def artist=(name)  # Artist has name, song, url
-    #     artist = Artist.new(name)
-
-    # end # end of artist=
-
-    def self.has_songs(artist_name)
+    def self.find_artist_by_name(artist_name)
         # binding.pry
         Artist.all.find {|artist| artist.name == artist_name}
     end # end of has_songs
-      
 
 end #Class
 

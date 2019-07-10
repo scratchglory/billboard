@@ -23,6 +23,7 @@ class Scraper
     end # end of get_chart
 
     def self.get_artist_details(url)
+        binding.pry
         doc = Nokogiri::HTML(open(@@base_url + url,'User-Agent' => 'ruby'))
         artist_details = doc.css("main#main")
         # artist_hash = {}

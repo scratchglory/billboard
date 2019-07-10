@@ -6,7 +6,6 @@ class Billboard::CLI
  
     def call
         scrape_song
-        # scrape_artist
         welcome 
         menu
         artist_select
@@ -16,15 +15,6 @@ class Billboard::CLI
     def scrape_song # first needs to get called
         Scraper.get_chart
     end # end of scrape_song
-
-    # def scrape_artist
-    #         Song.all.each do |song|
-    #             if song[:url] != "nil"
-    #                 artist = Scraper.new.get_artist_details(song[:url])
-    #                 artist
-    #             end # end of if
-    #         end # end of do
-    # end # end of scrape_artist
 
     def welcome
         puts " 
@@ -58,7 +48,6 @@ class Billboard::CLI
     # should have the list of songs from Scraper class
     def list_of_songs
         puts "\n"
-        # Scraper.get_chart
         rows = []
         # binding.pry
         Song.all.each do |song|
@@ -88,16 +77,12 @@ class Billboard::CLI
          end # end of if
     end  # artist_select
 
-    def artist_performance_chart(input) 
-        # has many and belongs to
+    def artist_performance_chart(input) # ouput of selected artist's chart
         selected_song = Song.all.find {|song| input == song.ranking}
-        # binding.pry
         if selected_song.url == "nil"   #if the url of the artist is nil 
             puts "ERROR: Server Error or profile not found!"
         else # if the url exists in Artist class then
-            # artist_details = selected_song.artist.has_songs || Scraper.get_artist_details
-            artist_details = Song.has_songs(selected_song.artist) || Scraper.get_artist_details(selected_song.url)
-            binding.pry
+            Song.find_artist_by_name(selected_song.artist) || Scraper.get_artist_details(selected_song.url)
                 puts "---------------------------------------------------------------"
                 Artist.all.detect do |artist|
                     if selected_song.url == artist.url
