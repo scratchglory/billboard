@@ -18,20 +18,20 @@ class Scraper
             url = song.css("div.chart-list-item__artist a")[0] ? song.css("div.chart-list-item__artist a")[0].attributes["href"].value : "nil"
                 # If index 0 has the attribute 'href' then execute, else 'nil'
             Song.create("#{title}", "#{artist}", "#{ranking}", "#{url}")
-            # binding.pry
+            # update so that Song.create instantiates a new Artist with name and url and sets new_song.artist equal to that artist instance
+            #new_song.artist should be an object, not a string
         end # iterator do 
     end # end of get_chart
 
-    def self.get_artist_details(url)
-        binding.pry
-        doc = Nokogiri::HTML(open(@@base_url + url,'User-Agent' => 'ruby'))
+    def self.get_artist_details(artist_obj)
+        # binding.pry
+        doc = Nokogiri::HTML(open(@@base_url + artist_obj.url,'User-Agent' => 'ruby'))
         artist_details = doc.css("main#main")
         # artist_hash = {}
-        artist_details.each do |artist|
-            name = artist.css(".artist-header__title").first.text.strip
-            songs = artist.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip
-            url = url
-            Artist.create("#{name}", "#{songs}", "#{url}")
-        end # end of do
-    end # end of get_artist_details0
+            chart_history = artist_details.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip
+            # instead of instantiating a new artist, you'll update that existing artist object that was passed as an argument
+            artist_obj.chart_history = chart_history
+            # Artist.create("#{name}", "#{songs}", "#{url}")
+    end # end of get_artist_details
+
 end # end of class

@@ -19,16 +19,15 @@ Or install it yourself as:
     $ gem install billboard
 
 ## Built With
-Nokogiri
-Open-uri
-terminal-table gem by: TJ Holowaychuk, Scott J. Goldman
-Built on Visual Studio Code
+- Nokogiri
+- Open-uri
+- terminal-table gem by: TJ Holowaychuk, Scott J. Goldman
+- Built on Visual Studio Code
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+To install this gem onto your local machine, in your terminal, clone this repository, change directory into where this file located, then run `bin/setup`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
@@ -44,7 +43,7 @@ Everyone interacting in the Billboard project’s codebases, issue trackers, cha
 
 ## Acknowledgements
 
- My cohorts and fellow classmates
- Ruby-Gems: https://rubygems.org/
- Billboard chart: https://www.billboard.com/charts/hot-100
- ASCII art generator: http://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
+ - My cohorts and fellow classmates
+ - Ruby-Gems: https://rubygems.org/
+ - Billboard chart: https://www.billboard.com/charts/hot-100
+ - ASCII art generator: http://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20

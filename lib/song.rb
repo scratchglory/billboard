@@ -1,15 +1,13 @@
 # called upon CLI.list_of_songs
 
 class Song 
-    attr_accessor :title, :artist, :ranking, :url
+    attr_accessor :title, :artist, :ranking
     @@all = [] # to store all of the songs created
 
-    def initialize(title, artist, ranking, url)
+    def initialize(title, artist, ranking)
         @title = title
         @artist = artist
         @ranking = ranking
-        @url = url
-        @@all
     end # end of initialize
 
     def self.all
@@ -21,15 +19,17 @@ class Song
     end # save
 
     def self.create(title, artist, ranking, url)
-        new_song = self.new(title, artist, ranking, url)
+        new_artist = Artist.create(artist, url)
+        new_song = self.new(title, new_artist, ranking)
         new_song.save
         new_song
     end # create
 
-    def self.find_artist_by_name(artist_name)
-        # binding.pry
-        Artist.all.find {|artist| artist.name == artist_name}
-    end # end of has_songs
+
+    # def self.find_artist_by_name(artist_name)
+    #     artist_name = Song.
+    #     Artist.all.find {|artist| artist.name == artist_name}
+    # end # end of has_songs
 
 end #Class
 

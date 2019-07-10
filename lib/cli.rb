@@ -49,13 +49,10 @@ class Billboard::CLI
     def list_of_songs
         puts "\n"
         rows = []
-        # binding.pry
         Song.all.each do |song|
             title = song.title
-            artist = song.artist
+            artist = song.artist.name
             ranking = song.ranking
-            url = song.url
-            # puts "#{ranking}. #{title} - #{artist}"
             rows << [ranking, title, artist]
         end # end of do
         table = Terminal::Table.new :headings => ['Ranking', 'Song', 'Aritst(s)'], :rows => rows
@@ -79,19 +76,22 @@ class Billboard::CLI
 
     def artist_performance_chart(input) # ouput of selected artist's chart
         selected_song = Song.all.find {|song| input == song.ranking}
-        if selected_song.url == "nil"   #if the url of the artist is nil 
+        if selected_song.artist.url == "nil"   #if the url of the artist is nil 
             puts "ERROR: Server Error or profile not found!"
         else # if the url exists in Artist class then
-            Song.find_artist_by_name(selected_song.artist) || Scraper.get_artist_details(selected_song.url)
+            #song.artist.details
+            # selected_song.artist.chart_history || scrape
+            selected_song.artist.chart_history || Scraper.get_artist_details(selected_song.artist)
                 puts "---------------------------------------------------------------"
-                Artist.all.detect do |artist|
-                    if selected_song.url == artist.url
-                        puts "This is " + "#{selected_song.artist}'s" + " top performance chart:" 
-                        songs = artist.songs
-                        songs_split = songs.split("\n\n") 
+                selected_song.artist.chart_history
+                # Artist.all.detect do |artist|
+                    # if selected_song.url == artist.url
+                        puts "This is " + "#{selected_song.artist.name}'s" + " top performance chart:" 
+                        # songs = artist.songs
+                        songs_split = selected_song.artist.chart_history.split("\n\n") 
                         songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}    
-                    end # end of if
-                end # end of do             
+        #             end # end of if
+        #         end # end of do             
         end # end of if
             reselect         
     end # end of artist_performance_chart

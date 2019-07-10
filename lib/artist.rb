@@ -1,12 +1,12 @@
 # called upon for use in CLI.artist_select
 
 class Artist  # also considered Constance
-    attr_accessor :name, :songs, :url
+    attr_accessor :name, :songs, :url, :chart_history
     @@all =[]
 
-     def initialize(name, songs, url)
+     def initialize(name, url)
         @name = name
-        @songs = songs
+        # @songs = songs
         @url = url
      end # initialize
 
@@ -18,8 +18,8 @@ class Artist  # also considered Constance
         self.class.all << self
     end # save
 
-    def self.create(name, songs, url)
-        new_artist = self.new(name, songs, url)
+    def self.create(name, url)
+        new_artist = self.new(name, url)
         new_artist.save
         new_artist
     end # create
