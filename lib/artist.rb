@@ -4,18 +4,17 @@ class Artist  # also considered Constance
     attr_accessor :name, :songs, :url, :chart_history
     @@all =[]
 
-     def initialize(name, url)
+    def initialize(name, url)
         @name = name
-        # @songs = songs
         @url = url
-     end # initialize
+    end # initialize
 
     def self.all 
         @@all
     end # all
 
     def save
-        self.class.all << self
+        @@all << self
     end # save
 
     def self.create(name, url)
@@ -23,7 +22,6 @@ class Artist  # also considered Constance
         new_artist.save
         new_artist
     end # create
-
 
 end # Class
  

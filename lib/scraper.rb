@@ -1,13 +1,11 @@
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
 require_relative './environment'
-require_relative './cli'
+
+
 
 class Scraper
     @@base_url = "https://www.billboard.com"
     
-    def self.get_chart
+    def self.get_chart # happens only once
         doc = Nokogiri::HTML(open(@@base_url + "/charts/hot-100"))   
         list_of_songs = doc.css("div.chart-list-item")
 
@@ -19,19 +17,15 @@ class Scraper
                 # If index 0 has the attribute 'href' then execute, else 'nil'
             Song.create("#{title}", "#{artist}", "#{ranking}", "#{url}")
             # update so that Song.create instantiates a new Artist with name and url and sets new_song.artist equal to that artist instance
-            #new_song.artist should be an object, not a string
-        end # iterator do 
-    end # end of get_chart
+        end # do 
+    end # get_chart
 
     def self.get_artist_details(artist_obj)
-        # binding.pry
         doc = Nokogiri::HTML(open(@@base_url + artist_obj.url,'User-Agent' => 'ruby'))
         artist_details = doc.css("main#main")
-        # artist_hash = {}
             chart_history = artist_details.css("div.artist-section--chart-history__title-list__title__text a.artist-section--chart-history__title-list__title__text--title").text.strip
             # instead of instantiating a new artist, you'll update that existing artist object that was passed as an argument
             artist_obj.chart_history = chart_history
-            # Artist.create("#{name}", "#{songs}", "#{url}")
-    end # end of get_artist_details
+    end # get_artist_details
 
-end # end of class
+end # class

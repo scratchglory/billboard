@@ -1,8 +1,4 @@
 #!/usr/bin/env ruby
 require_relative '../lib/environment'
-require "bundler/setup"
-require "environment"
-# require "billboard"
-
 
 Billboard::CLI.new.call # making a new instance and call the method

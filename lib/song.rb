@@ -8,28 +8,27 @@ class Song
         @title = title
         @artist = artist
         @ranking = ranking
-    end # end of initialize
+    end # initialize
 
     def self.all
         @@all
-    end #self.all
+    end # self.all
 
     def save # creating the songs with artist
-        self.class.all << self        
+        @@all << self        
     end # save
 
     def self.create(title, artist, ranking, url)
         new_artist = Artist.create(artist, url)
         new_song = self.new(title, new_artist, ranking)
         new_song.save
-        new_song
+        # new_song
     end # create
 
+    def self.find_by_ranking(input) # class finder, always its responsiblity
+        self.all.find {|song| input == song.ranking} # ranking attribute
+    end
 
-    # def self.find_artist_by_name(artist_name)
-    #     artist_name = Song.
-    #     Artist.all.find {|artist| artist.name == artist_name}
-    # end # end of has_songs
 
-end #Class
+end # Class
 
