@@ -22,13 +22,12 @@ class Song
         new_artist = Artist.create(artist, url)
         new_song = self.new(title, new_artist, ranking)
         new_song.save
-        # new_song
+        new_song
     end # create
 
     def self.find_by_ranking(input) # class finder, always its responsiblity
         self.all.find {|song| input == song.ranking} # ranking attribute
     end
-
 
 end # Class
 

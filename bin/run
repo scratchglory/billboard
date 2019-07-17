@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require_relative '../lib/environment'
 
-Billboard::CLI.new.call # making a new instance and call the method
+Billboard::CLI.new.call # instantiating a new object of the class, and calls on the call method

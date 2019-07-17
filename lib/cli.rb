@@ -1,4 +1,4 @@
-require 'terminal-table'
+# require 'terminal-table'
 
 class Billboard::CLI
     attr_accessor :song, :artist, :url, :ranking
@@ -28,7 +28,7 @@ class Billboard::CLI
 								 By Adella :)"
         puts "Welcome to the list of Billboards Top Hot 100 Songs!"
         puts "----------------------------------------------------"
-        puts "For a list of Billboard's 100, type 'list', or 'exit!' to exit."
+        puts "For a list of Billboard's 100, type 'list' for the chart, or 'exit!' to exit."
     end # welcome
 
     def menu # list or exit
@@ -50,7 +50,7 @@ class Billboard::CLI
         rows = []
         Song.all.each do |song|  # Expose the @@all class variable by calling the #all method on the Song class
             title = song.title
-            artist = song.artist.name
+            artist = song.artist.name # #artist returns the object. Needs #name to output the value of @name accessor
             ranking = song.ranking
             rows << [ranking, title, artist] # returns array of arrays
         end # end of do
@@ -74,7 +74,7 @@ class Billboard::CLI
         end # end of if
     end  # artist_select
 
-    def artist_performance_chart(input) # ouput of selected artist's chart
+    def artist_performance_chart(input) # input here is a string
         selected_song = Song.find_by_ranking(input) # has to be a string
         if selected_song.artist.url == "nil"   
             puts "ERROR: Server Error or profile not found!"
@@ -82,8 +82,9 @@ class Billboard::CLI
             selected_song.artist.chart_history || Scraper.get_artist_details(selected_song.artist)
             puts "---------------------------------------------------------------"
             puts "This is " + "#{selected_song.artist.name}'s" + " top performance chart:" 
-            songs_split = selected_song.artist.chart_history.split("\n\n") 
-            songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"}    
+            binding.pry
+            songs_split = selected_song.artist.chart_history.split("\n\n") # "\n\n" pattern, no limit
+            songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"} 
         end # if
             reselect         
     end # artist_performance_chart
