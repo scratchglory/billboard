@@ -11,9 +11,8 @@ class Scraper
             ranking = song.css("div.chart-list-item__rank").text.strip
             url = song.css("div.chart-list-item__artist a")[0] ? song.css("div.chart-list-item__artist a")[0].attributes["href"].value : "nil"
                 # If index 0 has the attribute 'href' then execute, else 'nil'
-            # binding.pry
-             Song.create(title, artist, ranking, url)
-                # Song.create("#{title}", "#{artist}", "#{ranking}", "#{url}")
+           
+            Song.create(title, artist, ranking, url)
             # update so that Song.create instantiates a new Artist with name and url and sets new_song.artist equal to that artist instance
         end # do 
     end # get_chart

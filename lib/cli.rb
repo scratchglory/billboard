@@ -82,11 +82,10 @@ class Billboard::CLI
             selected_song.artist.chart_history || Scraper.get_artist_details(selected_song.artist)
             puts "---------------------------------------------------------------"
             puts "This is " + "#{selected_song.artist.name}'s" + " top performance chart:" 
-            binding.pry
             songs_split = selected_song.artist.chart_history.split("\n\n") # "\n\n" pattern, no limit
             songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"} 
         end # if
-            reselect         
+                   
     end # artist_performance_chart
 
     def reselect
@@ -95,9 +94,10 @@ class Billboard::CLI
         puts "Enter 'list' to see the list and choose an artist's chart again"
         puts "Enter 'exit!' to exit"
         input = gets.strip.downcase
-        if input == "exit!"
+        case input
+        when"exit!"
             goodbye
-        elsif input == "list"
+        when "list"
             list_of_songs
             artist_select
         else 

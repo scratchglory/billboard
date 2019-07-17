@@ -26,8 +26,8 @@ class Song
     end # create
 
     def self.find_by_ranking(input) # class finder, always its responsiblity
-        self.all.find {|song| input == song.ranking} # ranking attribute
+        self.all.find {|song| song.ranking == input}
     end
-
+    
 end # Class
 
