@@ -76,7 +76,7 @@ class Billboard::CLI
 
     def artist_performance_chart(input) # input here is a string
         selected_song = Song.find_by_ranking(input) # has to be a string
-        if selected_song.artist.url == "nil"   
+        if !selected_song.artist.url  
             puts "ERROR: Server Error or profile not found!"
         else
             selected_song.artist.chart_history || Scraper.get_artist_details(selected_song.artist)
@@ -85,7 +85,7 @@ class Billboard::CLI
             songs_split = selected_song.artist.chart_history.split("\n\n") # "\n\n" pattern, no limit
             songs_split.each.with_index(1) {|info, i| puts "#{i}. #{info}"} 
         end # if
-                   
+        reselect
     end # artist_performance_chart
 
     def reselect
